@@ -2,49 +2,46 @@
 #include "main.h"
 
 /**
- * *str_concat - concatenates two strings
- * @s1: string to concatenate
- * @s2: other string to concatenate
+ * *_memset - fills memory with a constant byte
+ * @s: memory area to be filled
+ * @b: char to copy
+ * @n: number of times to copy b
  *
- * Return: pointer to the new string created (Success), or NULL (Error)
+ * Return: pointer to the memory area s
  */
-char *str_concat(char *s1, char *s2)
+char *_memset(char *s, char b, unsigned int n)
 {
-	char *s3;
-	unsigned int i = 0, j = 0, len1 = 0, len2 = 0;
+	unsigned int i;
 
-	while (s1 && s1[len1])
-		len1++;
-	while (s2 && s2[len2])
-		len2++;
+	for (i = 0; i < n; i++)
+	{
+		s[i] = b;
+	}
 
-	s3 = malloc(sizeof(char) * (len1 + len2 + 1));
-	if (s3 == NULL)
+	return (s);
+}
+
+/**
+ * *_calloc - allocates memory for an array
+ * @nmemb: number of elements in the array
+ * @size: size of each element
+ *
+ * Return: pointer to allocated memory
+ */
+void *_calloc(unsigned int nmemb, unsigned int size)
+{
+	char *ptr;
+
+	if (nmemb == 0 || size == 0)
 		return (NULL);
 
-	i = 0;
-	j = 0;
+	ptr = malloc(size * nmemb);
 
-	if (s1)
-	{
-		while (i < len1)
-		{
-			s3[i] = s1[i];
-			i++;
-		}
-	}
+	if (ptr == NULL)
+		return (NULL);
 
-	if (s2)
-	{
-		while (i < (len1 + len2))
-		{
-			s3[i] = s2[j];
-			i++;
-			j++;
-		}
-	}
-	s3[i] = '\0';
+	_memset(ptr, 0, nmemb * size);
 
-	return (s3);
+	return (ptr);
 }
 
