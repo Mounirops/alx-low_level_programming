@@ -1,51 +1,51 @@
-#include "main.h"
 #include <stdlib.h>
-/**
-  *argstostr - concatenates all arguments of the program.
-  *@ac: argument count.
-  *@av: pointer to array of size ac.
-  *Return: NULL if ac == 0 or av == null, Pointer to new string.
-  *NULL on fail.
-  */
-char *argstostr(int ac, char **av)
-{
-	int i, j, k, size;
-	char *arg;
+#include "main.h"
 
-	size = 0;
-	k = 0;
-	if (ac == 0 || av == NULL)
-		return (NULL);
-	i = 0;
-	while (i < ac)
+/**
+ * *_realloc - reallocates a memory block using malloc and free
+ * @ptr: pointer to the memory previsouly allocated by malloc
+ * @old_size: size of the allocated memory for ptr
+ * @new_size: new size of the new memory block
+ *
+ * Return: pointer to the newly allocated memory block
+ */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *ptr1;
+	char *old_ptr;
+	unsigned int i;
+
+	if (new_size == old_size)
+		return (ptr);
+
+	if (new_size == 0 && ptr)
 	{
-		j = 0;
-		while (av[i][j])
-		{
-			size++;
-			j++;
-		}
-		size++;
-		i++;
-	}
-	arg = malloc((sizeof(char) * size) + 1);
-	if (arg == NULL)
+		free(ptr);
 		return (NULL);
-	i = 0;
-	while (i < ac)
-	{
-		j = 0;
-		while (av[i][j])
-		{
-			arg[k] = av[i][j];
-			j++;
-			k++;
-		}
-		arg[k] = '\n';
-		k++;
-		i++;
 	}
-	arg[k] = '\0';
-	return (arg);
+
+	if (!ptr)
+		return (malloc(new_size));
+
+	ptr1 = malloc(new_size);
+	if (!ptr1)
+		return (NULL);
+
+	old_ptr = ptr;
+
+	if (new_size < old_size)
+	{
+		for (i = 0; i < new_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
+
+	if (new_size > old_size)
+	{
+		for (i = 0; i < old_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
+
+	free(ptr);
+	return (ptr1);
 }
 
