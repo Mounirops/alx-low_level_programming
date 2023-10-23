@@ -1,29 +1,19 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "lists.h"
 
 /**
- * main - check the code
+ * sum_listint - returns sum of all data
+ * @head: pointer to first node
  *
- * Return: Always 0.
+ * Return: sum
  */
-int main(void)
+int sum_listint(listint_t *head)
 {
-    listint_t *head;
-    int sum;
+	int sum = 0;
 
-    head = NULL;
-    add_nodeint_end(&head, 0);
-    add_nodeint_end(&head, 1);
-    add_nodeint_end(&head, 2);
-    add_nodeint_end(&head, 3);
-    add_nodeint_end(&head, 4);
-    add_nodeint_end(&head, 98);
-    add_nodeint_end(&head, 402);
-    add_nodeint_end(&head, 1024);
-    sum = sum_listint(head);
-    printf("sum = %d\n", sum);
-    free_listint2(&head);
-    return (0);
+	while (head)
+	{
+		sum += head->n;
+		head = head->next;
+	}
+	return (sum);
 }
