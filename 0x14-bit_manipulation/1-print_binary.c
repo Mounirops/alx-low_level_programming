@@ -1,22 +1,14 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
 
 void print_binary(unsigned long int n) {
-    if (n == 0) {
-        printf("0");
-        return;
-    }
+    int i;
 
-    unsigned long int divisor = 1;
-    while (divisor < n) {
-        divisor <<= 1;
-    }
-
-    while (divisor != 0) {
-        unsigned long int bit = n / divisor;
-        n %= divisor;
-        divisor >>= 1;
-        printf("%lu", bit);
+    for (i = sizeof(unsigned long int) * 8 - 1; i >= 0; i--) {
+        if ((n >> i) & 1) {
+            printf("1");
+        } else {
+            printf("0");
+        }
     }
 }
