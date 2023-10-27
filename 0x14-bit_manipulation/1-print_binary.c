@@ -1,14 +1,25 @@
-#include <stdio.h>
 #include "main.h"
 
-void print_binary(unsigned long int n) {
-    int i;
+/**
+ * print_binary - prints a number as binary string
+ * @n: the number to print
+ *
+ * Return: void
+ */
+void print_binary(unsigned long int n)
+{
+	int bit = sizeof(n) * 8, printed = 0;
 
-    for (i = sizeof(unsigned long int) * 8 - 1; i >= 0; i--) {
-        if ((n >> i) & 1) {
-            printf("1");
-        } else {
-            printf("0");
-        }
-    }
+	while (bit)
+	{
+		if (n & 1L << --bit)
+		{
+			_putchar('1');
+			printed++;
+		}
+		else if (printed)
+			_putchar('0');
+	}
+	if (!printed)
+		_putchar('0');
 }
